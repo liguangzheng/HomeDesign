@@ -4,9 +4,9 @@ package com.homedesign;
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.homedesign.renderer.HelloTriangleRenderer;
+import com.homedesign.util.LogUtil;
 import com.homedesign.util.OpenglUtil;
 
 public class ActivityMain extends Activity {
@@ -26,7 +26,7 @@ public class ActivityMain extends Activity {
             mGLSurfaceView.setEGLContextClientVersion(CONTEXT_CLIENT_VERSION);
             mGLSurfaceView.setRenderer(new HelloTriangleRenderer(this));
         } else {
-            Log.e("HelloTriangle", "OpenGL ES 2.0 not supported on device.  Exiting...");
+            LogUtil.e("HelloTriangle", "OpenGL ES 2.0 not supported on device.  Exiting...");
             finish();
         }
 

@@ -7,7 +7,8 @@ import java.io.InputStream;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.util.Log;
+
+import com.homedesign.util.LogUtil;
 
 /**
  * 该类方法同样适用于OpenGLES 3.0。将“GLES20”替换为“GLES30”即可。
@@ -93,7 +94,7 @@ public class ESShader {
         GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compiled, 0);
 
         if (compiled[0] == 0) {
-            Log.e("ESShader", GLES20.glGetShaderInfoLog(shader));
+            LogUtil.e("ESShader", GLES20.glGetShaderInfoLog(shader));
             GLES20.glDeleteShader(shader);
             return 0;
         }
@@ -145,8 +146,8 @@ public class ESShader {
         GLES20.glGetProgramiv(programObject, GLES20.GL_LINK_STATUS, linked, 0);
 
         if (linked[0] == 0) {
-            Log.e("ESShader", "Error linking program:");
-            Log.e("ESShader", GLES20.glGetProgramInfoLog(programObject));
+            LogUtil.e("ESShader", "Error linking program:");
+            LogUtil.e("ESShader", GLES20.glGetProgramInfoLog(programObject));
             GLES20.glDeleteProgram(programObject);
             return 0;
         }
@@ -221,8 +222,8 @@ public class ESShader {
         GLES20.glGetProgramiv(programObject, GLES20.GL_LINK_STATUS, linked, 0);
 
         if (linked[0] == 0) {
-            Log.e("ESShader", "Error linking program:");
-            Log.e("ESShader", GLES20.glGetProgramInfoLog(programObject));
+            LogUtil.e("ESShader", "Error linking program:");
+            LogUtil.e("ESShader", GLES20.glGetProgramInfoLog(programObject));
             GLES20.glDeleteProgram(programObject);
             return 0;
         }
