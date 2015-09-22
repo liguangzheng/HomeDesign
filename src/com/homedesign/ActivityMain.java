@@ -10,6 +10,7 @@ import com.homedesign.util.LogUtil;
 import com.homedesign.util.OpenglUtil;
 
 public class ActivityMain extends Activity {
+    private final static String TAG = "ActivityMain";
 
     private final int CONTEXT_CLIENT_VERSION = 2;
     private GLSurfaceView mGLSurfaceView;
@@ -20,13 +21,10 @@ public class ActivityMain extends Activity {
         mGLSurfaceView = new GLSurfaceView(this);
 
         if (OpenglUtil.detectOpenGLES20(this)) {
-            // Tell the surface view we want to create an OpenGL ES
-            // 2.0-compatible
-            // context, and set an OpenGL ES 2.0-compatible renderer.
             mGLSurfaceView.setEGLContextClientVersion(CONTEXT_CLIENT_VERSION);
             mGLSurfaceView.setRenderer(new HelloTriangleRenderer(this));
         } else {
-            LogUtil.e("HelloTriangle", "OpenGL ES 2.0 not supported on device.  Exiting...");
+            LogUtil.e(TAG, "当前设备不支持OpenGL：" + CONTEXT_CLIENT_VERSION);
             finish();
         }
 
