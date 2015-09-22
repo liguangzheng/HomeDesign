@@ -51,7 +51,7 @@ public class HelloTriangleRenderer implements GLSurfaceView.Renderer {
         GLES20.glVertexAttribPointer(0, 3, GLES20.GL_FLOAT, false, 0, mVertices);
         GLES20.glEnableVertexAttribArray(0);
 
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
+        GLES20.glDrawArrays(GLES20.GL_LINE_LOOP, 0, 3);// GLES20.GL_TRIANGLES
     }
 
     @Override
