@@ -36,6 +36,7 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 glUnused, EGLConfig config) {
         // Store the program object
         mProgramObject = ESShader.loadProgramFromAsset(mContext, "shaders/triangle.vs", "shaders/triangle.fs");
+
         // 设置背景色
         GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         // Use the program object
@@ -44,13 +45,16 @@ public class TriangleRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 glUnused) {
-        // Clear the color buffer
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-
-        // Load the vertex data
+        // 清空颜色缓冲和深度缓冲
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        // 顶点设置
+        // 获取vertex attribute "a_position"的入口点
+        int attributePosition = GLES20.glGetAttribLocation(mProgramObject, "a_position");
+        // 打开入a_position入口点
+        GLES20.glEnableVertexAttribArray(attributePosition);
+        // 传递顶点数据给a_position
         GLES20.glVertexAttribPointer(0, 3, GLES20.GL_FLOAT, false, 0, mVertices);
-        GLES20.glEnableVertexAttribArray(0);
-
+        // 执行绘制
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);// GLES20.GL_TRIANGLES/GLES20.GL_LINE_LOOP
     }
 
