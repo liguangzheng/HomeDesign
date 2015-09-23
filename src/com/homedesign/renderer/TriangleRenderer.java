@@ -14,7 +14,7 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class HelloTriangleRenderer implements GLSurfaceView.Renderer {
+public class TriangleRenderer implements GLSurfaceView.Renderer {
 
     private Context mContext;
     private int mProgramObject;
@@ -26,7 +26,7 @@ public class HelloTriangleRenderer implements GLSurfaceView.Renderer {
             0.0f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f
     };
 
-    public HelloTriangleRenderer(Context context) {
+    public TriangleRenderer(Context context) {
         this.mContext = context;
         mVertices = ByteBuffer.allocateDirect(mVerticesData.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
         mVertices.put(mVerticesData).position(0);
@@ -51,7 +51,7 @@ public class HelloTriangleRenderer implements GLSurfaceView.Renderer {
         GLES20.glVertexAttribPointer(0, 3, GLES20.GL_FLOAT, false, 0, mVertices);
         GLES20.glEnableVertexAttribArray(0);
 
-        GLES20.glDrawArrays(GLES20.GL_LINE_LOOP, 0, 3);// GLES20.GL_TRIANGLES
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);// GLES20.GL_TRIANGLES/GLES20.GL_LINE_LOOP
     }
 
     @Override
