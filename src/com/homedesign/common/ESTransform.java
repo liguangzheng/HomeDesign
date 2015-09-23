@@ -229,6 +229,9 @@ public class ESTransform {
         mMatrix = tmp;
     }
 
+    /**
+     * 设置为单元矩阵
+     */
     public void matrixLoadIdentity() {
         for (int i = 0; i < 16; i++) {
             mMatrix[i] = 0.0f;

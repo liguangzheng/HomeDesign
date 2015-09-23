@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
-import com.homedesign.renderer.TriangleRenderer;
+import com.homedesign.renderer.HomeDesignRenderer;
 import com.homedesign.util.LogUtil;
 import com.homedesign.util.OpenglUtil;
 
@@ -22,7 +22,7 @@ public class ActivityMain extends Activity {
 
         if (OpenglUtil.detectOpenGLES20(this)) {
             mGLSurfaceView.setEGLContextClientVersion(CONTEXT_CLIENT_VERSION);
-            mGLSurfaceView.setRenderer(new TriangleRenderer(this));
+            mGLSurfaceView.setRenderer(new HomeDesignRenderer(this));
         } else {
             LogUtil.e(TAG, "当前设备不支持OpenGL：" + CONTEXT_CLIENT_VERSION);
             finish();
