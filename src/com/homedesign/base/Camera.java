@@ -46,13 +46,13 @@ public class Camera {
     public void create() {
         // 设置相机
         // eye--摄像头在世界坐标系中的坐标
-        final float eyeX = 0.0f;
-        final float eyeY = 0.0f;
+        final float eyeX = 1.5f;
+        final float eyeY = 1.5f;
         final float eyeZ = 1.5f;
         // look--摄像头所望的方向的一点
         final float lookX = 0.0f;
         final float lookY = 0.0f;
-        final float lookZ = -5.0f;
+        final float lookZ = 0.0f;
         // up--摄像头上方一坐标
         final float upX = 0.0f;
         final float upY = 1.0f;

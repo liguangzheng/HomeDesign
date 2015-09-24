@@ -53,7 +53,8 @@ public class Triangle extends BasePlug {
         GLES20.glUseProgram(getProgramObject());
         // 顶点设置
         Matrix.setIdentityM(getMVPMatrix(), 0);// 重置为单位矩阵
-        Matrix.translateM(getMVPMatrix(), 0, 0.5f, 0, 0);// 执行平移
+//        Matrix.translateM(getMVPMatrix(), 0, 0.5f, 0, 0);// 执行平移
+//        Matrix.rotateM(getMVPMatrix(), 0, 45, 0, 1, 0);// 执行旋转
 
         // 颜色设置
         // 获取vertex attribute "a_color"的入口点
@@ -72,7 +73,11 @@ public class Triangle extends BasePlug {
 
         // 获取uniform "matViewProjection"的入口点
         int attributeMatViewProjection = GLES20.glGetUniformLocation(getProgramObject(), "matViewProjection");
-        GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, getMVPMatrixFloatBuffer());
+        float[] temp = new float[16];
+        Matrix.multiplyMM(temp, 0, camera.getMatrix(), 0, getMVPMatrix(), 0);
+        float[] temp2 = new float[16];
+        Matrix.multiplyMM(temp2, 0, projection.getMatrix(), 0, temp, 0);
+        GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp2, 0);
 
         // 执行绘制
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);// GLES20.GL_TRIANGLES/GLES20.GL_LINE_LOOP
