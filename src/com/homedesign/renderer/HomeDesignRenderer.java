@@ -19,9 +19,6 @@ public class HomeDesignRenderer extends BaseRenderer {
     private Line mLine;
     private Triangle mTriangle;
 
-    private Camera mCamera;
-    private Projection mProjection;
-
     public HomeDesignRenderer(Context context) {
         mLine = new Line(context);
         mTriangle = new Triangle(context);
@@ -37,7 +34,7 @@ public class HomeDesignRenderer extends BaseRenderer {
         GLES20.glEnable(GLES20.GL_CULL_FACE);
         // 初始化摄像机（eye world）
         mCamera = new Camera();
-        mCamera.create();
+        mCamera.setLookAt(0.0f, 0.0f, 3.0f, 0.0f, 0.0f, 0.0f);
 
         mLine.create();
         mTriangle.create();
@@ -49,7 +46,7 @@ public class HomeDesignRenderer extends BaseRenderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         // 执行整体坐标系平移
         Matrix.setIdentityM(getMatrix(), 0);
-        Matrix.translateM(getMatrix(), 0, 3.0f, 0.0f, 1.0f);
+        Matrix.translateM(getMatrix(), 0, 0.0f, 0.0f, -2.0f);
         // 部件绘制
         mLine.draw(this, mCamera, mProjection);
         mTriangle.draw(this, mCamera, mProjection);
@@ -61,7 +58,7 @@ public class HomeDesignRenderer extends BaseRenderer {
         GLES20.glViewport(0, 0, width, height);
         // 设置投影
         mProjection = new Projection();
-        mProjection.create(Projection.PROJECTION_PERSPECTIVE, width, height);
+        mProjection.create(Projection.PROJECTION_PERSPECTIVE, width, height, 1.0f, 10.0f);
     }
 
 }

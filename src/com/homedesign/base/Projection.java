@@ -48,16 +48,18 @@ public class Projection {
      * @param projection PROJECTION_ORTHO(正交)或PROJECTION_PERSPECTIVE(透视)
      * @param width
      * @param height
+     * @param near 近平面位置
+     * @param far 远平面位置
      */
-    public void create(int projection, int width, int height) {
+    public void create(int projection, int width, int height, float near, float far) {
         final boolean isWidthLarger = width > height;
         final float ratio = isWidthLarger ? (float) width / height : (float) height / width;
         if (isWidthLarger) {
             // 横屏
             if (projection == PROJECTION_ORTHO) {
-                Matrix.orthoM(mMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 1.0f, 10.0f);
+                Matrix.orthoM(mMatrix, 0, -ratio, ratio, -1.0f, 1.0f, near, far);
             } else if (projection == PROJECTION_PERSPECTIVE) {
-                Matrix.frustumM(mMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 1.0f, 10.0f);
+                Matrix.frustumM(mMatrix, 0, -ratio, ratio, -1.0f, 1.0f, near, far);
             } else {
                 try {
                     throw new Exception("projection is null");
@@ -68,9 +70,9 @@ public class Projection {
         } else {
             // 竖屏
             if (projection == PROJECTION_ORTHO) {
-                Matrix.orthoM(mMatrix, 0, -1.0f, 1.0f, -ratio, ratio, 1.0f, 10.0f);
+                Matrix.orthoM(mMatrix, 0, -1.0f, 1.0f, -ratio, ratio, near, far);
             } else if (projection == PROJECTION_PERSPECTIVE) {
-                Matrix.frustumM(mMatrix, 0, -1.0f, 1.0f, -ratio, ratio, 1.0f, 10.0f);
+                Matrix.frustumM(mMatrix, 0, -1.0f, 1.0f, -ratio, ratio, near, far);
             } else {
                 try {
                     throw new Exception("projection is null");

@@ -2,33 +2,16 @@
 package com.homedesign;
 
 import android.app.Activity;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
-import com.homedesign.renderer.HomeDesignRenderer;
-import com.homedesign.util.LogUtil;
-import com.homedesign.util.OpenglUtil;
-
 public class ActivityMain extends Activity {
-    private final static String TAG = "ActivityMain";
-
-    private final int CONTEXT_CLIENT_VERSION = 2;
-    private GLSurfaceView mGLSurfaceView;
-
+    
+    private HomeDesignGLSurfaceView mGLSurfaceView;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGLSurfaceView = new GLSurfaceView(this);
-
-        if (OpenglUtil.detectOpenGLES20(this)) {
-            mGLSurfaceView.setEGLContextClientVersion(CONTEXT_CLIENT_VERSION);
-            mGLSurfaceView.setRenderer(new HomeDesignRenderer(this));
-            mGLSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);// 主动渲染模式
-        } else {
-            LogUtil.e(TAG, "当前设备不支持OpenGL：" + CONTEXT_CLIENT_VERSION);
-            finish();
-        }
-
+        mGLSurfaceView = new HomeDesignGLSurfaceView(this);
         setContentView(mGLSurfaceView);
     }
 

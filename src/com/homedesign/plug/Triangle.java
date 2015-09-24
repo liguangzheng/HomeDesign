@@ -55,7 +55,7 @@ public class Triangle extends BasePlug {
         // 顶点设置
         Matrix.setIdentityM(getMVPMatrix(), 0);// 重置为单位矩阵
         // Matrix.translateM(getMVPMatrix(), 0, 0.5f, 0, 0);// 执行平移
-//        Matrix.rotateM(getMVPMatrix(), 0, 45, 1, 0, 0);// 执行旋转
+        Matrix.rotateM(getMVPMatrix(), 0, 45, 1, 0, 0);// 执行旋转
 
         // 颜色设置
         // 获取vertex attribute "a_color"的入口点
@@ -79,7 +79,7 @@ public class Triangle extends BasePlug {
         float[] temp2 = new float[16];
         Matrix.multiplyMM(temp2, 0, camera.getMatrix(), 0, renderer.getMatrix(), 0);
         float[] temp3 = new float[16];
-        Matrix.multiplyMM(temp3, 0, projection.getMatrix(), 0, temp, 0);
+        Matrix.multiplyMM(temp3, 0, projection.getMatrix(), 0, temp2, 0);
         GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp3, 0);
 
         // 执行绘制
