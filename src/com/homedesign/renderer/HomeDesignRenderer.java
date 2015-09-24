@@ -3,8 +3,9 @@ package com.homedesign.renderer;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 
+import com.homedesign.base.BaseRenderer;
 import com.homedesign.base.Camera;
 import com.homedesign.base.Projection;
 import com.homedesign.plug.Line;
@@ -13,7 +14,7 @@ import com.homedesign.plug.Triangle;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class HomeDesignRenderer implements GLSurfaceView.Renderer {
+public class HomeDesignRenderer extends BaseRenderer {
 
     private Line mLine;
     private Triangle mTriangle;
@@ -46,9 +47,12 @@ public class HomeDesignRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 glUnused) {
         // 清空颜色缓冲和深度缓冲
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        // 执行整体坐标系平移
+        Matrix.setIdentityM(getMatrix(), 0);
+        Matrix.translateM(getMatrix(), 0, 3.0f, 0.0f, 1.0f);
         // 部件绘制
-        mLine.draw(mCamera, mProjection);
-        mTriangle.draw(mCamera, mProjection);
+        mLine.draw(this, mCamera, mProjection);
+        mTriangle.draw(this, mCamera, mProjection);
     }
 
     @Override

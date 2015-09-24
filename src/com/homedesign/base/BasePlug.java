@@ -58,10 +58,11 @@ public abstract class BasePlug {
     /**
      * 绘制
      * 
-     * @param camera
-     * @param projection
+     * @param renderer 渲染器，其中存在世界坐标系矩阵变化
+     * @param camera 摄像机，其中存在摄像机矩阵变化
+     * @param projection 投影，其中包括投影矩阵变化
      */
-    public abstract void draw(Camera camera, Projection projection);
+    public abstract void draw(BaseRenderer renderer, Camera camera, Projection projection);
 
     /**
      * 平移

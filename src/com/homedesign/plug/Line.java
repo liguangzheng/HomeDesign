@@ -6,6 +6,7 @@ import android.opengl.GLES20;
 import android.opengl.Matrix;
 
 import com.homedesign.base.BasePlug;
+import com.homedesign.base.BaseRenderer;
 import com.homedesign.base.Camera;
 import com.homedesign.base.Projection;
 import com.homedesign.common.ESShader;
@@ -56,7 +57,7 @@ public class Line extends BasePlug {
     }
 
     @Override
-    public void draw(Camera camera, Projection projection) {
+    public void draw(BaseRenderer renderer, Camera camera, Projection projection) {
         GLES20.glUseProgram(getProgramObject());
         Matrix.setIdentityM(getMVPMatrix(), 0);// 重置为单位矩阵
         // 颜色设置
@@ -79,8 +80,10 @@ public class Line extends BasePlug {
         float[] temp = new float[16];
         Matrix.multiplyMM(temp, 0, camera.getMatrix(), 0, getMVPMatrix(), 0);
         float[] temp2 = new float[16];
-        Matrix.multiplyMM(temp2, 0, projection.getMatrix(), 0, temp, 0);
-        GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp2, 0);
+        Matrix.multiplyMM(temp2, 0, camera.getMatrix(), 0, renderer.getMatrix(), 0);
+        float[] temp3 = new float[16];
+        Matrix.multiplyMM(temp3, 0, projection.getMatrix(), 0, temp2, 0);
+        GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp3, 0);
         // 执行绘制
         GLES20.glLineWidth(3.0f);
         GLES20.glDrawArrays(GLES20.GL_LINES, 0, 6);
