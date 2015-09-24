@@ -5,6 +5,9 @@ import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
+import com.homedesign.base.Camera;
+import com.homedesign.base.Projection;
+import com.homedesign.plug.Line;
 import com.homedesign.plug.Triangle;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -12,17 +15,31 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class HomeDesignRenderer implements GLSurfaceView.Renderer {
 
+    private Line mLine;
     private Triangle mTriangle;
 
+    private Camera mCamera;
+    private Projection mProjection;
+
     public HomeDesignRenderer(Context context) {
+        mLine = new Line(context);
         mTriangle = new Triangle(context);
     }
 
     @Override
     public void onSurfaceCreated(GL10 glUnused, EGLConfig config) {
-        mTriangle.create();
         // 设置背景色，为白色
         GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        // 启动深度测试
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+        // 开背裁
+        GLES20.glEnable(GLES20.GL_CULL_FACE);
+        // 初始化摄像机（eye world）
+        mCamera = new Camera();
+        mCamera.create();
+
+        mLine.create();
+        mTriangle.create();
     }
 
     @Override
@@ -30,13 +47,17 @@ public class HomeDesignRenderer implements GLSurfaceView.Renderer {
         // 清空颜色缓冲和深度缓冲
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         // 部件绘制
-        mTriangle.draw();
+        mLine.draw(mCamera, mProjection);
+        mTriangle.draw(mCamera, mProjection);
     }
 
     @Override
     public void onSurfaceChanged(GL10 glUnused, int width, int height) {
         // 设置视窗
         GLES20.glViewport(0, 0, width, height);
+        // 设置投影
+        mProjection = new Projection();
+        mProjection.create(Projection.PROJECTION_PERSPECTIVE, width, height);
     }
 
 }

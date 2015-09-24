@@ -3,13 +3,33 @@ package com.homedesign.base;
 
 import android.content.Context;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
 public abstract class BasePlug {
 
     protected Context mContext;
-    protected int mProgramObject;
+    private int mProgramObject;
+    /**
+     * Allocate storage for the final combined matrix. This will be passed into
+     * the shader program.
+     */
+    private float[] mMVPMatrix = new float[16];
+    private FloatBuffer mMVPMatrixFloatBuffer;
 
     public BasePlug(Context context) {
         mContext = context;
+        mMVPMatrixFloatBuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+    }
+
+    public FloatBuffer getMVPMatrixFloatBuffer() {
+        mMVPMatrixFloatBuffer.put(mMVPMatrix).position(0);
+        return mMVPMatrixFloatBuffer;
+    }
+
+    public float[] getMVPMatrix() {
+        return mMVPMatrix;
     }
 
     /**
@@ -31,14 +51,17 @@ public abstract class BasePlug {
     }
 
     /**
-     * 初始创建
+     * 初始创建，一般用于创建程序并绑定着色器
      */
     public abstract void create();
 
     /**
      * 绘制
+     * 
+     * @param camera
+     * @param projection
      */
-    public abstract void draw();
+    public abstract void draw(Camera camera, Projection projection);
 
     /**
      * 平移

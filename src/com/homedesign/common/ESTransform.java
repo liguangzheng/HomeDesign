@@ -126,16 +126,6 @@ public class ESTransform {
         }
     }
 
-    /**
-     * 透视投影
-     * 
-     * @param left
-     * @param right
-     * @param bottom
-     * @param top
-     * @param nearZ
-     * @param farZ
-     */
     public void frustum(float left, float right, float bottom, float top, float nearZ, float farZ) {
         float deltaX = right - left;
         float deltaY = top - bottom;
@@ -163,6 +153,16 @@ public class ESTransform {
         matrixMultiply(frust, mMatrix);
     }
 
+    /**
+     * 透视投影
+     * 
+     * @param left
+     * @param right
+     * @param bottom
+     * @param top
+     * @param nearZ
+     * @param farZ
+     */
     public void perspective(float fovy, float aspect, float nearZ, float farZ) {
         float frustumW, frustumH;
 
