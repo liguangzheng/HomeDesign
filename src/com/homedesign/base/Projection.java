@@ -2,10 +2,7 @@
 package com.homedesign.base;
 
 import android.opengl.Matrix;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+import android.renderscript.Matrix4f;
 
 public class Projection {
 
@@ -13,12 +10,12 @@ public class Projection {
     public static final int PROJECTION_PERSPECTIVE = 1;// 透视投影
 
     /**
-     * Store the projection matrix. This is used to project the scene onto a 2D
-     * viewport.
+     * 投影矩阵
      */
-    private float[] mMatrix = new float[16];// 投影矩阵
+    private Matrix4f mMatrix;
 
     public Projection() {
+        mMatrix = new Matrix4f();
     }
 
     /**
@@ -26,19 +23,8 @@ public class Projection {
      * 
      * @return
      */
-    public float[] getMatrix() {
+    public Matrix4f getMatrix() {
         return mMatrix;
-    }
-
-    /**
-     * 获取投影矩阵缓冲
-     * 
-     * @return
-     */
-    public FloatBuffer getFloatBuffer() {
-        FloatBuffer floatbuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        floatbuffer.put(mMatrix).position(0);
-        return floatbuffer;
     }
 
     /**
@@ -56,9 +42,9 @@ public class Projection {
         if (isWidthLarger) {
             // 横屏
             if (projection == PROJECTION_ORTHO) {
-                Matrix.orthoM(mMatrix, 0, -ratio, ratio, -1.0f, 1.0f, near, far);
+                Matrix.orthoM(mMatrix.getArray(), 0, -ratio, ratio, -1.0f, 1.0f, near, far);
             } else if (projection == PROJECTION_PERSPECTIVE) {
-                Matrix.frustumM(mMatrix, 0, -ratio, ratio, -1.0f, 1.0f, near, far);
+                Matrix.frustumM(mMatrix.getArray(), 0, -ratio, ratio, -1.0f, 1.0f, near, far);
             } else {
                 try {
                     throw new Exception("projection is null");
@@ -69,9 +55,9 @@ public class Projection {
         } else {
             // 竖屏
             if (projection == PROJECTION_ORTHO) {
-                Matrix.orthoM(mMatrix, 0, -1.0f, 1.0f, -ratio, ratio, near, far);
+                Matrix.orthoM(mMatrix.getArray(), 0, -1.0f, 1.0f, -ratio, ratio, near, far);
             } else if (projection == PROJECTION_PERSPECTIVE) {
-                Matrix.frustumM(mMatrix, 0, -1.0f, 1.0f, -ratio, ratio, near, far);
+                Matrix.frustumM(mMatrix.getArray(), 0, -1.0f, 1.0f, -ratio, ratio, near, far);
             } else {
                 try {
                     throw new Exception("projection is null");

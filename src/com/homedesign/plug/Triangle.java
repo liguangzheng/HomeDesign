@@ -75,11 +75,11 @@ public class Triangle extends BasePlug {
         // 获取uniform "matViewProjection"的入口点
         int attributeMatViewProjection = GLES20.glGetUniformLocation(getProgramObject(), "matViewProjection");
         float[] temp = new float[16];
-        Matrix.multiplyMM(temp, 0, camera.getMatrix(), 0, getMVPMatrix(), 0);
+        Matrix.multiplyMM(temp, 0, camera.getMatrix().getArray(), 0, getMVPMatrix(), 0);
         float[] temp2 = new float[16];
-        Matrix.multiplyMM(temp2, 0, camera.getMatrix(), 0, renderer.getMatrix(), 0);
+        Matrix.multiplyMM(temp2, 0, camera.getMatrix().getArray(), 0, renderer.getMatrix(), 0);
         float[] temp3 = new float[16];
-        Matrix.multiplyMM(temp3, 0, projection.getMatrix(), 0, temp2, 0);
+        Matrix.multiplyMM(temp3, 0, projection.getMatrix().getArray(), 0, temp2, 0);
         GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp3, 0);
 
         // 执行绘制

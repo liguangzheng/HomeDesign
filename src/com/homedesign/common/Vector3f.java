@@ -1,5 +1,5 @@
 
-package com.homedesign.base;
+package com.homedesign.common;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -10,11 +10,11 @@ import java.nio.FloatBuffer;
  * 
  * @author liguangzheng
  */
-public class Vector3 {
+public class Vector3f {
 
     private float[] vec = new float[3];
 
-    public Vector3(float v1, float v2, float v3) {
+    public Vector3f(float v1, float v2, float v3) {
         vec[0] = v1;
         vec[1] = v2;
         vec[2] = v3;

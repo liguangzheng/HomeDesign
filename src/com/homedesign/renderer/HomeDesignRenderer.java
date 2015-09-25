@@ -8,7 +8,7 @@ import android.opengl.Matrix;
 import com.homedesign.base.BaseRenderer;
 import com.homedesign.base.Camera;
 import com.homedesign.base.Projection;
-import com.homedesign.base.Vector3;
+import com.homedesign.common.Vector3f;
 import com.homedesign.plug.Line;
 import com.homedesign.plug.Triangle;
 
@@ -35,7 +35,7 @@ public class HomeDesignRenderer extends BaseRenderer {
         GLES20.glEnable(GLES20.GL_CULL_FACE);
         // 初始化摄像机（eye world）
         mCamera = new Camera();
-        mCamera.setLookAt(new Vector3(0.0f, 0.0f, 2.0f), new Vector3(0.0f, 0.0f, -1.0f));
+        mCamera.setLookAt(new Vector3f(0.0f, 0.0f, 2.0f), new Vector3f(0.0f, 0.0f, -1.0f));
 
         mLine.create();
         mTriangle.create();
