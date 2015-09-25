@@ -2,14 +2,14 @@
 package com.homedesign.base;
 
 import android.opengl.GLSurfaceView;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+import android.renderscript.Matrix4f;
 
 public abstract class BaseRenderer implements GLSurfaceView.Renderer {
 
-    private float[] mModelMatrix = new float[16];
+    /**
+     * 对世界坐标系（OpenGL中的三维空间）变化进行描述（即记录其矩阵变化）
+     */
+    private Matrix4f mWorldMatrix = new Matrix4f();
     protected Camera mCamera;
     protected Projection mProjection;
 
@@ -18,19 +18,8 @@ public abstract class BaseRenderer implements GLSurfaceView.Renderer {
      * 
      * @return
      */
-    public float[] getMatrix() {
-        return mModelMatrix;
-    }
-
-    /**
-     * 获取模型变换矩阵缓冲
-     * 
-     * @return
-     */
-    public FloatBuffer getModelMatrixFloatBuffer() {
-        FloatBuffer floatbuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        floatbuffer.put(mModelMatrix).position(0);
-        return floatbuffer;
+    public Matrix4f getMatrix() {
+        return mWorldMatrix;
     }
 
     /**

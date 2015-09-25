@@ -53,7 +53,6 @@ public class Line extends BasePlug {
     @Override
     public void draw(BaseRenderer renderer, Camera camera, Projection projection) {
         GLES20.glUseProgram(getProgramObject());
-        Matrix.setIdentityM(getMVPMatrix(), 0);// 重置为单位矩阵
         // 颜色设置
         // 获取vertex attribute "a_color"的入口点
         int attributeColor = GLES20.glGetAttribLocation(getProgramObject(), "a_color");
@@ -71,10 +70,10 @@ public class Line extends BasePlug {
 
         // 获取uniform "matViewProjection"的入口点
         int attributeMatViewProjection = GLES20.glGetUniformLocation(getProgramObject(), "matViewProjection");
-        float[] temp = new float[16];
-        Matrix.multiplyMM(temp, 0, camera.getMatrix().getArray(), 0, getMVPMatrix(), 0);
+        float[] temp1 = new float[16];
+        Matrix.multiplyMM(temp1, 0, camera.getMatrix().getArray(), 0, getMVPMatrix().getArray(), 0);
         float[] temp2 = new float[16];
-        Matrix.multiplyMM(temp2, 0, camera.getMatrix().getArray(), 0, renderer.getMatrix(), 0);
+        Matrix.multiplyMM(temp2, 0, camera.getMatrix().getArray(), 0, renderer.getMatrix().getArray(), 0);
         float[] temp3 = new float[16];
         Matrix.multiplyMM(temp3, 0, projection.getMatrix().getArray(), 0, temp2, 0);
         GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp3, 0);

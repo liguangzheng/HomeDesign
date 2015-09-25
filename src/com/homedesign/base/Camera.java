@@ -12,6 +12,9 @@ import com.homedesign.common.Vector3f;
  */
 public class Camera {
 
+    /**
+     * 用于记录三维观察坐标系变化进行描述（即记录其矩阵变化）
+     */
     private Matrix4f mMatrix;
     private Vector3f mPosition;
     private Vector3f mLook;
@@ -91,7 +94,13 @@ public class Camera {
      * @param screeny 屏上Y轴的累加移动量 即3维空间按X轴旋转的弧度
      */
     public synchronized void updateLookAt(float screenx, float screeny) {
-        Matrix.setLookAtM(mMatrix.getArray(), 0, mPosition.getX(), mPosition.getY(), mPosition.getZ(), mLook.getX(),
-                mLook.getY(), mLook.getZ(), mUp.getX(), mUp.getY(), mUp.getZ());
+        Vector3f tempUp = Vector3f.copy(mUp);
+    }
+
+    /**
+     * 绘制摄像机可视边框
+     */
+    public void drawBox() {
+
     }
 }

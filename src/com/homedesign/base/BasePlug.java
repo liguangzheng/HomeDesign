@@ -2,10 +2,7 @@
 package com.homedesign.base;
 
 import android.content.Context;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+import android.renderscript.Matrix4f;
 
 public abstract class BasePlug {
 
@@ -15,21 +12,11 @@ public abstract class BasePlug {
      * Allocate storage for the final combined matrix. This will be passed into
      * the shader program.
      */
-    private float[] mMVPMatrix = new float[16];
+    private Matrix4f mMVPMatrix;
 
     public BasePlug(Context context) {
         mContext = context;
-    }
-
-    /**
-     * 获取联合矩阵缓冲
-     * 
-     * @return
-     */
-    public FloatBuffer getMVPMatrixFloatBuffer() {
-        FloatBuffer floatbuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        floatbuffer.put(mMVPMatrix).position(0);
-        return floatbuffer;
+        mMVPMatrix = new Matrix4f();
     }
 
     /**
@@ -37,7 +24,7 @@ public abstract class BasePlug {
      * 
      * @return
      */
-    public float[] getMVPMatrix() {
+    public Matrix4f getMVPMatrix() {
         return mMVPMatrix;
     }
 

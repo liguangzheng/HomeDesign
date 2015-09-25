@@ -14,6 +14,9 @@ public class Vector2f {
 
     private float[] vec = new float[2];
 
+    public Vector2f() {
+    }
+
     public Vector2f(float v1, float v2) {
         vec[0] = v1;
         vec[1] = v2;
@@ -55,5 +58,18 @@ public class Vector2f {
         FloatBuffer floatbuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
         floatbuffer.put(vec).position(0);
         return floatbuffer;
+    }
+
+    /**
+     * 复制指定向量
+     * 
+     * @param res
+     */
+    public void copy(Vector2f res) {
+        if (null == vec) {
+            throw new RuntimeException("vec is null");
+        }
+        vec[0] = res.getX();
+        vec[1] = res.getY();
     }
 }

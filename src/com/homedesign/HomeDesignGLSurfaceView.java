@@ -39,7 +39,7 @@ public class HomeDesignGLSurfaceView extends GLSurfaceView {
             setEGLContextClientVersion(CONTEXT_CLIENT_VERSION);
             mRenderer = new HomeDesignRenderer(context);
             setRenderer(mRenderer);
-            setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);// 主动渲染模式
+            setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);// 设置主动渲染模式
         } else {
             LogUtil.e(TAG, "当前设备不支持OpenGL：" + CONTEXT_CLIENT_VERSION);
         }

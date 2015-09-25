@@ -14,6 +14,9 @@ public class Vector3f {
 
     private float[] vec = new float[3];
 
+    public Vector3f() {
+    }
+
     public Vector3f(float v1, float v2, float v3) {
         vec[0] = v1;
         vec[1] = v2;
@@ -65,5 +68,22 @@ public class Vector3f {
         FloatBuffer floatbuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
         floatbuffer.put(vec).position(0);
         return floatbuffer;
+    }
+
+    /**
+     * 复制指定向量
+     * 
+     * @param res
+     * @return
+     */
+    public static Vector3f copy(Vector3f res) {
+        Vector3f out = new Vector3f();
+        if (null == res) {
+            throw new RuntimeException("vec is null");
+        }
+        out.getArray()[0] = res.getX();
+        out.getArray()[1] = res.getY();
+        out.getArray()[2] = res.getZ();
+        return out;
     }
 }

@@ -76,4 +76,19 @@ public class Vector4f {
         floatbuffer.put(vec).position(0);
         return floatbuffer;
     }
+
+    /**
+     * 复制指定向量
+     * 
+     * @param res
+     */
+    public void copy(Vector4f res) {
+        if (null == vec) {
+            throw new RuntimeException("vec is null");
+        }
+        vec[0] = res.getX();
+        vec[1] = res.getY();
+        vec[2] = res.getZ();
+        vec[3] = res.getW();
+    }
 }
