@@ -21,19 +21,12 @@ public class Line extends BasePlug {
     private FloatBuffer mColors;
 
     private final float[] mVerticesData = {
-            0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-
-            0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-
-            0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f
+            0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 2.0f
     };
 
     private final float[] mColorData = {
-            1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-
-            0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-
-            0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f
+            0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
     };
 
     public Line(Context context) {
@@ -66,7 +59,7 @@ public class Line extends BasePlug {
         // 打开入a_position入口点
         GLES20.glEnableVertexAttribArray(attributePosition);
         // 传递顶点数据给a_position
-        GLES20.glVertexAttribPointer(attributePosition, 2, GLES20.GL_FLOAT, false, 0, mVertices);
+        GLES20.glVertexAttribPointer(attributePosition, 3, GLES20.GL_FLOAT, false, 0, mVertices);
 
         // 获取uniform "matViewProjection"的入口点
         int attributeMatViewProjection = GLES20.glGetUniformLocation(getProgramObject(), "matViewProjection");
@@ -79,7 +72,7 @@ public class Line extends BasePlug {
         GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp3, 0);
         // 执行绘制
         GLES20.glLineWidth(3.0f);
-        GLES20.glDrawArrays(GLES20.GL_LINES, 0, 6);
+        GLES20.glDrawArrays(GLES20.GL_LINES, 0, mVerticesData.length / 3);
     }
 
 }

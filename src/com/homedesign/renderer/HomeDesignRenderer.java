@@ -33,11 +33,11 @@ public class HomeDesignRenderer extends BaseRenderer {
         GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         // 启动深度测试
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        // 开背裁
-        GLES20.glEnable(GLES20.GL_CULL_FACE);
+        // 开背裁()
+        GLES20.glDisable(GLES20.GL_CULL_FACE);
         // 初始化摄像机（eye world）
         mCamera = new Camera();
-        mCamera.setLookAt(new Vector3f(1.0f, 1.0f, 1.0f), new Vector3f(0.0f, 0.0f, 0.0f));
+        mCamera.setLookAt(new Vector3f(2.0f, 2.0f, 2.0f), new Vector3f(0.0f, 0.0f, 0.0f));
 
         // 对世界坐标系进行交换
         // // 平移
@@ -66,7 +66,7 @@ public class HomeDesignRenderer extends BaseRenderer {
         GLES20.glViewport(0, 0, width, height);
         // 设置投影
         mProjection = new Projection();
-        mProjection.create(Projection.PROJECTION_PERSPECTIVE, width, height, 1.1f, 10.0f);
+        mProjection.create(Projection.PROJECTION_PERSPECTIVE, width, height, 1.0f, 10.0f);
     }
 
 }

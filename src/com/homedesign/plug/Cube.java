@@ -26,7 +26,7 @@ public class Cube extends BasePlug {
     public Cube(Context context) {
         super(context);
         mCube = new ESShapes();
-        mCube.genCube(1);
+        mCube.genCube(2);
     }
 
     @Override
