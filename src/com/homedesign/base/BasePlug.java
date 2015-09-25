@@ -16,18 +16,27 @@ public abstract class BasePlug {
      * the shader program.
      */
     private float[] mMVPMatrix = new float[16];
-    private FloatBuffer mMVPMatrixFloatBuffer;
 
     public BasePlug(Context context) {
         mContext = context;
-        mMVPMatrixFloatBuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
     }
 
+    /**
+     * 获取联合矩阵缓冲
+     * 
+     * @return
+     */
     public FloatBuffer getMVPMatrixFloatBuffer() {
-        mMVPMatrixFloatBuffer.put(mMVPMatrix).position(0);
-        return mMVPMatrixFloatBuffer;
+        FloatBuffer floatbuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        floatbuffer.put(mMVPMatrix).position(0);
+        return floatbuffer;
     }
 
+    /**
+     * 获取联合矩阵
+     * 
+     * @return
+     */
     public float[] getMVPMatrix() {
         return mMVPMatrix;
     }

@@ -17,14 +17,12 @@ public class Projection {
      * viewport.
      */
     private float[] mMatrix = new float[16];// 投影矩阵
-    private FloatBuffer mFloatBuffer;
 
     public Projection() {
-        mFloatBuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
     }
 
     /**
-     * 获取矩阵
+     * 获取投影矩阵
      * 
      * @return
      */
@@ -33,13 +31,14 @@ public class Projection {
     }
 
     /**
-     * 获取浮点型缓冲
+     * 获取投影矩阵缓冲
      * 
      * @return
      */
     public FloatBuffer getFloatBuffer() {
-        mFloatBuffer.put(mMatrix).position(0);
-        return mFloatBuffer;
+        FloatBuffer floatbuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        floatbuffer.put(mMatrix).position(0);
+        return floatbuffer;
     }
 
     /**

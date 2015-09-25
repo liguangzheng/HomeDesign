@@ -55,7 +55,7 @@ public class Triangle extends BasePlug {
         // 顶点设置
         Matrix.setIdentityM(getMVPMatrix(), 0);// 重置为单位矩阵
         // Matrix.translateM(getMVPMatrix(), 0, 0.5f, 0, 0);// 执行平移
-        Matrix.rotateM(getMVPMatrix(), 0, 45, 1, 0, 0);// 执行旋转
+        Matrix.rotateM(getMVPMatrix(), 0, 45, 0, 0, 1);// 执行旋转
 
         // 颜色设置
         // 获取vertex attribute "a_color"的入口点
