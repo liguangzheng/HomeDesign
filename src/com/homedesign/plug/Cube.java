@@ -11,6 +11,7 @@ import com.homedesign.base.Camera;
 import com.homedesign.base.Projection;
 import com.homedesign.common.ESShader;
 import com.homedesign.common.ESShapes;
+import com.homedesign.util.LogUtil;
 
 /**
  * 部件：正方体
@@ -18,6 +19,7 @@ import com.homedesign.common.ESShapes;
  * @author liguangzheng
  */
 public class Cube extends BasePlug {
+    private static final String TAG = "Cube";
 
     private ESShapes mCube;
     // VertexBufferObject Ids
@@ -26,7 +28,7 @@ public class Cube extends BasePlug {
     public Cube(Context context) {
         super(context);
         mCube = new ESShapes();
-        mCube.genCube(2);
+        mCube.genCube(2 * UNIT);
     }
 
     @Override
@@ -38,18 +40,19 @@ public class Cube extends BasePlug {
 
     @Override
     public void draw(BaseRenderer renderer, Camera camera, Projection projection) {
+        LogUtil.e(TAG, "do draw");
         // Use the program object
         GLES20.glUseProgram(getProgramObject());
         // 顶点设置
-        // Matrix.translateM(getMVPMatrix().getArray(), 0, 0.5f, 0, 0);// 执行平移
-        // Matrix.rotateM(getMVPMatrix().getArray(), 0, 45, 0, 0, 1);// 执行旋转
+        Matrix.translateM(getModelMatrix().getArray(), 0, 0.5f, 0, 0);// 执行平移
+        // Matrix.rotateM(getModelMatrix().getArray(), 0, 45, 0, 0, 1);// 执行旋转
 
         // 获取uniform "matViewProjection"的入口点
         int attributeMatViewProjection = GLES20.glGetUniformLocation(getProgramObject(), "matViewProjection");
         float[] temp1 = new float[16];
-        Matrix.multiplyMM(temp1, 0, camera.getMatrix().getArray(), 0, getMVPMatrix().getArray(), 0);
+        Matrix.multiplyMM(temp1, 0, renderer.getMatrix().getArray(), 0, getModelMatrix().getArray(), 0);
         float[] temp2 = new float[16];
-        Matrix.multiplyMM(temp2, 0, camera.getMatrix().getArray(), 0, renderer.getMatrix().getArray(), 0);
+        Matrix.multiplyMM(temp2, 0, camera.getMatrix().getArray(), 0, temp1, 0);
         float[] temp3 = new float[16];
         Matrix.multiplyMM(temp3, 0, projection.getMatrix().getArray(), 0, temp2, 0);
         GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp3, 0);

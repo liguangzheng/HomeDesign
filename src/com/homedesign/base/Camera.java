@@ -8,17 +8,17 @@ import com.homedesign.common.Vector3f;
 
 /**
  * @author liguangzheng
- * @description 摄像机类
+ * @description 摄像机类，支持平移和旋转
  */
 public class Camera {
 
     /**
-     * 用于记录三维观察坐标系变化进行描述（即记录其矩阵变化）
+     * 用于记录三维观察坐标系（或视觉坐标系）变化进行描述（即记录其矩阵变化）
      */
     private Matrix4f mMatrix;
-    private Vector3f mPosition;
-    private Vector3f mLook;
-    private Vector3f mUp;
+    private Vector3f mPosition;// 摄像机在世界坐标系中的坐标
+    private Vector3f mLook;// 摄像头所望的方向的一点
+    private Vector3f mUp;// 摄像机上方一坐标
 
     public Camera() {
         mMatrix = new Matrix4f();
@@ -77,7 +77,7 @@ public class Camera {
     }
 
     /**
-     * 设置摄像机
+     * 设置摄像机，默认up(0.0f, 1.0f, 0.0f)
      * 
      * @param position
      * @param look
