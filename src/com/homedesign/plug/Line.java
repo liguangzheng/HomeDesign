@@ -68,6 +68,7 @@ public class Line extends BasePlug {
 
         // 获取uniform "matViewProjection"的入口点
         int attributeMatViewProjection = GLES20.glGetUniformLocation(getProgramObject(), "matViewProjection");
+        loadIdentity();
         float[] temp1 = new float[16];
         Matrix.multiplyMM(temp1, 0, renderer.getMatrix().getArray(), 0, getModelMatrix().getArray(), 0);
         float[] temp2 = new float[16];

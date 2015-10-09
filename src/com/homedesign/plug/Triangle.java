@@ -54,6 +54,7 @@ public class Triangle extends BasePlug {
         // Use the program object
         GLES20.glUseProgram(getProgramObject());
         // 顶点设置
+        loadIdentity();
         // Matrix.translateM(getMVPMatrix().getArray(), 0, 0.5f, 0, 0);// 执行平移
         Matrix.rotateM(getModelMatrix().getArray(), 0, 45, 0, 0, 1);// 执行旋转
 

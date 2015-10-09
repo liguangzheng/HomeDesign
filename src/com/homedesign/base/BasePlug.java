@@ -24,6 +24,13 @@ public abstract class BasePlug {
     }
 
     /**
+     * 初始化矩阵
+     */
+    public void loadIdentity() {
+        mModelMatrix.loadIdentity();
+    }
+
+    /**
      * 获取联合矩阵
      * 
      * @return
