@@ -16,9 +16,10 @@ public class Camera {
      * 用于记录三维观察坐标系（或视觉坐标系）变化进行描述（即记录其矩阵变化）
      */
     private Matrix4f mMatrix;
-    private Vector3f mPosition;// 摄像机在世界坐标系中的坐标
-    private Vector3f mLook;// 摄像头所望的方向的一点
-    private Vector3f mUp;// 摄像机上方一坐标
+    private Vector3f mEye;// 摄像机(眼睛)在世界坐标系中的坐标
+    private Vector3f mLook;// 摄像机(眼睛)所望的方向的一点
+    private Vector3f mUp;// 摄像机(眼睛)上方一坐标
+    private float mSpeed;// 摄像机(眼睛)移动速度
 
     public Camera() {
         mMatrix = new Matrix4f();
@@ -36,10 +37,10 @@ public class Camera {
     /**
      * 设置摄像机位置
      * 
-     * @param position
+     * @param eye
      */
-    public void setPosition(Vector3f position) {
-        mPosition = position;
+    public void setPosition(Vector3f eye) {
+        mEye = eye;
     }
 
     /**
@@ -63,28 +64,28 @@ public class Camera {
     /**
      * 设置摄像机
      * 
-     * @param position
+     * @param eye
      * @param look
      * @param up
      */
-    public void setLookAt(Vector3f position, Vector3f look, Vector3f up) {
-        mPosition = position;
+    public void setLookAt(Vector3f eye, Vector3f look, Vector3f up) {
+        mEye = eye;
         mLook = look;
         mUp = up;
 
-        Matrix.setLookAtM(mMatrix.getArray(), 0, position.getX(), position.getY(), position.getZ(), look.getX(),
-                look.getY(), look.getZ(), up.getX(), up.getY(), up.getZ());
+        Matrix.setLookAtM(mMatrix.getArray(), 0, eye.getX(), eye.getY(), eye.getZ(), look.getX(), look.getY(),
+                look.getZ(), up.getX(), up.getY(), up.getZ());
     }
 
     /**
-     * 设置摄像机，默认up(0.0f, 1.0f, 0.0f)
+     * 设置摄像机，默认up(0.0f, 1.0f, 0.0f)，即平视，眼睛在视觉坐标系中水平放置
      * 
      * @param position
      * @param look
      */
-    public void setLookAt(Vector3f position, Vector3f look) {
+    public void setLookAt(Vector3f eye, Vector3f look) {
         Vector3f up = new Vector3f(0.0f, 1.0f, 0.0f);
-        setLookAt(position, look, up);
+        setLookAt(eye, look, up);
     }
 
     /**
@@ -95,6 +96,18 @@ public class Camera {
      */
     public synchronized void updateLookAt(float screenx, float screeny) {
         Vector3f tempUp = Vector3f.copy(mUp);
+    }
+
+    /**
+     * 旋转
+     * 
+     * @param angle
+     * @param x
+     * @param y
+     * @param z
+     */
+    public void rotate(float angle, float x, float y, float z) {
+        
     }
 
     /**
