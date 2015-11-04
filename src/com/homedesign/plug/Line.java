@@ -21,7 +21,12 @@ public class Line extends BasePlug {
     private FloatBuffer mColors;
 
     private final float[] mVerticesData = {
-            0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 2.0f
+            // x轴
+            0.0f * UNIT, 0.0f * UNIT, 0.0f * UNIT, 2.0f * UNIT, 0.0f * UNIT, 0.0f * UNIT,
+            // y轴
+            0.0f * UNIT, 0.0f * UNIT, 0.0f * UNIT, 0.0f * UNIT, 2.0f * UNIT, 0.0f * UNIT,
+            // z轴
+            0.0f * UNIT, 0.0f * UNIT, 0.0f * UNIT, 0.0f * UNIT, 0.0f * UNIT, 2.0f * UNIT
     };
 
     private final float[] mColorData = {
@@ -63,10 +68,11 @@ public class Line extends BasePlug {
 
         // 获取uniform "matViewProjection"的入口点
         int attributeMatViewProjection = GLES20.glGetUniformLocation(getProgramObject(), "matViewProjection");
+        loadIdentity();
         float[] temp1 = new float[16];
-        Matrix.multiplyMM(temp1, 0, camera.getMatrix().getArray(), 0, getMVPMatrix().getArray(), 0);
+        Matrix.multiplyMM(temp1, 0, renderer.getMatrix().getArray(), 0, getModelMatrix().getArray(), 0);
         float[] temp2 = new float[16];
-        Matrix.multiplyMM(temp2, 0, camera.getMatrix().getArray(), 0, renderer.getMatrix().getArray(), 0);
+        Matrix.multiplyMM(temp2, 0, camera.getMatrix().getArray(), 0, temp1, 0);
         float[] temp3 = new float[16];
         Matrix.multiplyMM(temp3, 0, projection.getMatrix().getArray(), 0, temp2, 0);
         GLES20.glUniformMatrix4fv(attributeMatViewProjection, 1, false, temp3, 0);

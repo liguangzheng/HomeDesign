@@ -4,7 +4,11 @@ package com.homedesign.base;
 import android.content.Context;
 import android.renderscript.Matrix4f;
 
+import com.homedesign.common.Constant;
+
 public abstract class BasePlug {
+
+    protected static final int UNIT = Constant.CM;// 尺寸单位
 
     protected Context mContext;
     private int mProgramObject;
@@ -12,11 +16,18 @@ public abstract class BasePlug {
      * Allocate storage for the final combined matrix. This will be passed into
      * the shader program.
      */
-    private Matrix4f mMVPMatrix;
+    private Matrix4f mModelMatrix;
 
     public BasePlug(Context context) {
         mContext = context;
-        mMVPMatrix = new Matrix4f();
+        mModelMatrix = new Matrix4f();
+    }
+
+    /**
+     * 初始化矩阵
+     */
+    public void loadIdentity() {
+        mModelMatrix.loadIdentity();
     }
 
     /**
@@ -24,8 +35,8 @@ public abstract class BasePlug {
      * 
      * @return
      */
-    public Matrix4f getMVPMatrix() {
-        return mMVPMatrix;
+    public Matrix4f getModelMatrix() {
+        return mModelMatrix;
     }
 
     /**
