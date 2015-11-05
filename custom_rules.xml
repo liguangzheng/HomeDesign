@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="custom_rules" >
+    
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties" >
+        <classpath>
+            <!--注意这里要和你拷贝的那个JAR文件相同-->
+            <pathelement location="lib/ant-contrib-1.0b3.jar" />
+        </classpath>
+    </taskdef>
+    
+    <target name="deploy" >
+        <foreach
+            delimiter=","
+            list="${market_channels}"
+            param="channel"
+            target="modify_manifest" >
+        </foreach>
+    </target>
+    
+    <target name="modify_manifest" >
+       <replaceregexp 
+            encoding="utf-8"
+            file="AndroidManifest.xml"
+            match="CHANNEL_VALUE"
+            replace="${channel}">
+        </replaceregexp>
+        <antcall target="clean" />
+        <antcall target="release" />
+        
+        <copy tofile="${final.apk.dir}/${ant.project.name}_${channel}-release.apk" >
+            <fileset
+                dir="${out.absolute.dir}/"
+                includes="*-release.apk" />
+        </copy>
+        
+        <!--这里要将替换之后的渠道号值改成默认的值CHANNEL_VALUE，不然下一个打包时将不会替换渠道号的值-->
+        <replaceregexp
+            encoding="utf-8"
+            file="AndroidManifest.xml"
+            match="${channel}"
+            replace="CHANNEL_VALUE" />
+    </target>
+    
+</project>
